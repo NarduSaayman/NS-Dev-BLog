@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
 } from "remix";
 import type { MetaFunction } from "remix";
-import styles from "./styles/app.css";
+import styles from "./tailwind.css";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
@@ -27,6 +27,18 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <div className="flex py-6 justify-between">
+          <div>
+            <h1 className="text-3xl">Nardus' Blog</h1>
+          </div>
+          <div className="">
+            <ul className="flex px-5 flex-row justify-between">
+              <li className="px-5">home</li>
+              <li className="px-5">blog</li>
+              <li className="px-5">about</li>
+            </ul>
+          </div>
+        </div>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

@@ -1,0 +1,142 @@
+---
+title: What is MDX❓
+date: 2022-04-01
+meta:
+  title: What is MDX❓
+  description: A rundown 🏃‍♂️ of what MDX is, how it works in Remix 💿, and how to implement it in your own remix project.
+---
+
+import BlogComponent from "~/components/blog-component";
+
+# {attributes.title}
+
+{attributes.date.toDateString()}
+
+## This is it, it's what you're reading right now!
+
+```md
+# What is MDX❓
+
+Fri Apr 01 2022
+
+## This is it, it's what you're reading right now!
+```
+
+### Well kind of, let's dive 🏊‍♂️ in properly
+
+<br />
+
+## How do I get started with MDX in Remix 💿?
+
+### What do I install?
+
+Here's the great part. Nothing! Remix 💿 has MDX built in 🏗 and ready to use.
+Let's use this page as our example.
+
+#### The same way Remix handles .jsx/.tsx files for routing, the same is handled with .mdx files.
+
+Routing to the file is as simple as navigating to the file in the folder structure
+
+![Routing to mdx]()
+
+### Let's get started with a .mdx file
+
+```md
+---
+
+title: What is MDX❓
+date: 2022-04-01
+meta:
+  title: What is MDX❓
+  description: A rundown of what MDX is, how it works in Remix 💿, and how to implement it in your own remix project.
+
+---
+
+```
+
+The lines in the document above between the --- are called "frontmatter". You can think of them like metadata for your document, formatted as YAML.
+
+`meta` acts as the same the meta function in a typical route module in remix, we can add the title and description.
+
+We can reference these frontmatter fields in our MDX using the global `attributes` field.
+
+
+```md
+
+# {attributes.title}
+
+{attributes.date.toDateString()}
+
+## This is it, it's what you're reading right now!
+
+```
+
+Any markdown that you can normally write is valid for mdx:
+
+- lists
+  1. Links: [animations](/blog/animations)
+  2. > qoute blocks
+  3. <mark>Code blocks</mark> and footnotes [^1]
+  ```js
+   function(){
+     return "hello world"
+   }
+  ```
+
+[^1]: code-highlighting
+
+
+<br />
+
+## [Markdown for the component era](https://mdxjs.com/)
+
+> MDX allows you to use JSX in your markdown content. You write markdown and have the power of embedding components through JSX.
+
+```md
+import MyComponent from "./mycomponent.jsx";
+export const name = "name of my component";
+
+# {name}
+
+This is some markdown explaining what {name} does.
+
+<MyComponent name={name} someOtherProp="" />
+```
+
+Here is an example of importing and adding a `BlogComponent` into the .mdx file...
+
+```jsx
+
+import BlogComponent from "~/components/blog-component";
+
+<BlogComponent 
+heading="This is a Blog Component example" 
+description="Components can be utilized as we normally do, and it will display in .mdx file." 
+/>
+
+```
+
+...and here is what was rendered.
+<BlogComponent heading="This is a Blog Component example" description="Components can be utilized as we normally do, and it will display in .mdx file." />
+
+Here is what the inside of that component looks like... 👀
+
+```jsx
+type BlogComponentProps = {
+  heading: string;
+  description: string;
+};
+
+export default function BlogComponent(params: BlogComponentProps) {
+  const { heading, description } = params;
+  return (
+    <div className="bg-slate-600 text-white rounded-lg p-8 hover:bg-slate-400 hover:text-black">
+      <h3 className="text-white hover:text-black">{heading}</h3>
+      <p>{description}</p>
+    </div>
+  );
+}
+```
+
+## Now for the last bit of setup to get your page looking neat
+
