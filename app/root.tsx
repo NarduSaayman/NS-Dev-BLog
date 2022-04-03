@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -26,16 +27,37 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <div className="flex py-6 justify-between">
-          <div>
-            <h1 className="text-3xl">Nardus' Blog</h1>
-          </div>
-          <div className="">
+      <body className="bg-gradient-to-l from-green-300 via-blue-500 to-purple-600">
+        <div className="flex sticky top-0 justify-between rounded-b-3xl shadow-xl bg-gradient-to-bl from-green-100 via-blue-50 to-purple-50 z-10">
+          <div className="m-auto">
             <ul className="flex px-5 flex-row justify-between">
-              <li className="px-5">home</li>
-              <li className="px-5">blog</li>
-              <li className="px-5">about</li>
+              <Link
+                to="blog"
+                className="px-10 cursor-pointer
+                bg-gradient-to-bl from-green-100 via-blue-50 to-purple-50
+                hover:from-pink-400 hover:via-red-400 hover:to-yellow-400
+                py-5 rounded-md h-full"
+              >
+                BLOG
+              </Link>
+              <Link
+                to="home"
+                className="px-10 cursor-pointer
+              bg-gradient-to-b from-green-100 via-blue-50 to-purple-50
+              hover:from-pink-400 hover:via-red-400 hover:to-yellow-400
+              py-5 rounded-md h-full"
+              >
+                HOME
+              </Link>
+              <Link
+                to="about"
+                className="px-10 cursor-pointer
+                bg-gradient-to-br from-green-100 via-blue-50 to-purple-50
+                hover:from-pink-400 hover:via-red-400 hover:to-yellow-400
+                py-5 rounded-md h-full"
+              >
+                ABOUT
+              </Link>
             </ul>
           </div>
         </div>
