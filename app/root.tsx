@@ -27,7 +27,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-gradient-to-l from-green-300 via-blue-500 to-purple-600">
+      <body className="bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600">
         <div className="flex sticky top-0 justify-between rounded-b-3xl shadow-xl bg-gradient-to-bl from-green-100 via-blue-50 to-purple-50 z-10">
           <div className="m-auto">
             <ul className="flex px-5 flex-row justify-between">
@@ -41,7 +41,7 @@ export default function App() {
                 BLOG
               </Link>
               <Link
-                to="home"
+                to="/"
                 className="px-10 cursor-pointer
               bg-gradient-to-b from-green-100 via-blue-50 to-purple-50
               hover:from-pink-400 hover:via-red-400 hover:to-yellow-400

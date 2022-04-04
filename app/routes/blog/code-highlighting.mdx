@@ -7,13 +7,55 @@ meta:
 ---
 
 import { Link } from "remix";
+import { motion } from "framer-motion";
 
+export let toLeft = -1
+export let toRight = 1
+
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 # {attributes.title}
+</motion.div>
 
+<motion.div
+  initial={{
+    y: 50,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 {attributes.date.toDateString()}
 
 When we talk about code highlighting, it's about having that nice display of readable code from a programming language.
+</motion.div>
 
+<motion.div
+  initial={{
+    x: -100 * toRight,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 <div className="transition ease-out hover:scale-105">
 ```jsx
 function(){
@@ -21,9 +63,22 @@ function(){
 }
 ```
 </div>
+</motion.div>
 ---
 
-## But how do we style these in MDX❓
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
+## How do we style code blocks in MDX❓
 
 You can think of it like we're converting the markdown into html, with mdx, we can hook into this transformation with some plugins.
 
@@ -45,13 +100,38 @@ Let's install it...
 npm install rehype-highlight
 ```
 rehype-highlight is a rehype plugin, using highlightJS.
+</motion.div>
 
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 ### Some slight configuration we need to do first
 
 Add an mdx key in our remix config, to allow us to hook into the plugin system.
 
 `remix.config.js`
 
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 <div className="transition ease-out hover:scale-105">
 ```js
 module.exports = {
@@ -67,7 +147,21 @@ module.exports = {
 };
 ```
 </div>
+</motion.div>
+</motion.div>
 
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 ## Now we can build a layout route...
 
 First things first, create a `blog.tsx` file in your routes directory (in the same level as your blog folder). Here we can define any css that will be used on this route.
@@ -76,15 +170,40 @@ First things first, create a `blog.tsx` file in your routes directory (in the sa
 
 We'll also need `Outlet` from remix to display our blog posts.
 
+<motion.div
+  initial={{
+    x: -100 * toRight,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 <div className="transition ease-out hover:scale-105">
 ```jsx
 import styles from "highlight.js/styles/github-dark-dimmed.css";
 import { LinksFunction, Outlet } from "remix";
 ```
 </div>
+</motion.div>
 
 Then we just need to link or stylesheets with the `LinksFunction`.
 
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 <div className="transition ease-out hover:scale-105">
 ```jsx
 export const links: LinksFunction = () => {
@@ -97,11 +216,37 @@ export const links: LinksFunction = () => {
 };
 ```
 </div>
+</motion.div>
+</motion.div>
 
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 ### Since `blog.tsx` is our layout route for all the blogs...
 
 We need to export a default function and drop in an `<Outlet />`
 
+<motion.div
+  initial={{
+    x: -100 * toRight,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 <div className="transition ease-out hover:scale-105">
 ```jsx
 export default function Blog() {
@@ -115,16 +260,30 @@ export default function Blog() {
 }
 ```
 </div>
+</motion.div>
 
 Awesome, navigate to one of your posts and you should be seeing some code highlighting now.
 
 "But wait, the page still isn't fully styled and just looks like plain html?"
 
 This is where you can write your own custom css, or reach for your favourite styling libraries, I went for tailwindcss, which has a great plugin for styling markdown with a simple classname.
+</motion.div>
 
 ---
 
-### I won't dive in the setup of tailwind and it's plugin in this post, but here are some helpfull resources:
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
+### I won't go into the setup of tailwind and it's plugin in this post, but here are some helpfull resources:
 
 Remix and tailwindcss have great documentation on setting up tailwind w/ remix.
 
@@ -137,6 +296,18 @@ Remix and tailwindcss have great documentation on setting up tailwind w/ remix.
 
 it's as simple as adding a `prose` class around your `<Outlet />`
 
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 <div className="transition ease-out hover:scale-105">
 ```jsx
 <div className="prose">
@@ -144,28 +315,75 @@ it's as simple as adding a `prose` class around your `<Outlet />`
 </div>
 ```
 </div>
+</motion.div>
+</motion.div>
 
 ---
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 ### Now we can have a look at some of the animations we've seen throughout the blog.
+</motion.div>
 ---
 
 <div className="flex flex-row">
-  <Link to={`../what-is-mdx`} className="transition ease-in-out
-    mr-auto rounded-lg shadow-lg text-white
-    hover:scale-105 no-underline hover:underline 
-    bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
-    hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500" >
-    <div>
-      <h4 style={{ marginTop: "0px" }} className="pt-4 pb-2 px-5 text-white">👈 What is MDX❓</h4>
+  <motion.div
+    initial={{
+      x: -100 * toLeft,
+      opacity: 0,
+    }}
+    whileInView={{ x: 0, opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{
+      x: { type: "spring", duration: 0.8, delay: 0.2 },
+      opacity: { delay: 0.2 },
+    }}
+    className="mr-auto"
+  >
+    <div className="transition ease-in-out
+        rounded-lg shadow-lg
+        hover:scale-105 hover:underline 
+        bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+        hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500">
+      <Link to={`../what-is-mdx`} className="no-underline text-white" >
+        <div>
+          <h4 style={{ marginTop: "0px" }} className="py-4 px-5 text-white">👈 What is MDX❓</h4>
+        </div>
+      </Link>
     </div>
-  </Link>
-  <Link to={`../animations`} className="transition ease-in-out
-    ml-auto rounded-lg shadow-lg text-white
-    hover:scale-105 no-underline hover:underline 
-    bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
-    hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500" >
-    <div>
-      <h4 style={{ marginTop: "0px" }} className="pt-4 pb-2 px-5 text-white">Animations 🏃‍♂️ 👉</h4>
+  </motion.div>
+  <motion.div
+    initial={{
+      x: -100 * toRight,
+      opacity: 0,
+    }}
+    whileInView={{ x: 0, opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{
+      x: { type: "spring", duration: 0.8, delay: 0.2 },
+      opacity: { delay: 0.2 },
+    }}
+    className="ml-auto"
+  >
+    <div className="transition ease-in-out
+        rounded-lg shadow-lg
+        hover:scale-105 hover:underline 
+        bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+        hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500">
+      <Link to={`../animations`} className="no-underline text-white">
+        <div>
+          <h4 style={{ marginTop: "0px" }} className="py-4 px-5 text-white"> 🏃‍♂️ Animations 👉</h4>
+        </div>
+      </Link>
     </div>
-  </Link>
+  </motion.div>
 </div>
