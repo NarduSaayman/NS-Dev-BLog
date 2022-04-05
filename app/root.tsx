@@ -3,7 +3,6 @@ import {
   Links,
   LiveReload,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useLocation,
@@ -69,11 +68,7 @@ export default function App() {
             </ul>
           </div>
         </div>
-        <AnimatePresence
-          exitBeforeEnter
-          onExitComplete={() => console.log("exit complete")}
-          initial={false}
-        >
+        <AnimatePresence exitBeforeEnter initial={false}>
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}

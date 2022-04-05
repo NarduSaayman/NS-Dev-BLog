@@ -226,6 +226,33 @@ Motion is now your oyster, be creative and start playing with animations.
     opacity: { delay: 0.3 },
   }}
 >
+
+## Trasitions from page to page
+
+```jsx
+import { useLocation, useOutlet } from "remix";
+```
+
+```jsx
+  const outlet = useOutlet();
+```
+
+Wrapping the outlet in an `<AnimationPresence/>` and a `<motion.div/>`
+
+```jsx
+<AnimatePresence exitBeforeEnter initial={false}>
+  <motion.div
+    initial={{ opacity: 0, x: -100 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: 100 }}
+    transition={{ duration: 0.5 }}
+    key={useLocation().key}
+  >
+    {outlet}
+  </motion.div>
+</AnimatePresence>
+```
+
 ### Here are some snippets of animation from this blog.
 
 This code block...
