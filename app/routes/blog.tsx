@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import styles from "highlight.js/styles/github-dark-dimmed.css";
 import { LinksFunction, Outlet } from "remix";
 

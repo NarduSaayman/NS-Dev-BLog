@@ -25,9 +25,11 @@ export default function BlogIndex() {
 
   return (
     <div className="flex flex-col">
-      <div className="mx-auto -mt-20 rounded-lg shadow-xl px-10 bg-gradient-to-br from-pink-400 via-red-400 to-yellow-400 z-0 py-5 w-6/12 text-center mb-8">
-        <h1 style={{ marginBottom: "0px" }}>Blogs</h1>
-      </div>
+      <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
+        <div className="mx-auto -mt-20 rounded-lg shadow-xl px-10 bg-gradient-to-br from-pink-400 via-red-400 to-yellow-400 z-0 py-5 w-6/12 text-center mb-8">
+          <h1 style={{ marginBottom: "0px" }}>Blogs</h1>
+        </div>
+      </motion.div>
       <div className="p-1">
         <ul className="flex flex-col gap-4">
           {posts.map(
