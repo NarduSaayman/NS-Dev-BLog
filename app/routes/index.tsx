@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import FrontendSamurai from "~/components/frontend-samurai";
 
 export default function Index() {

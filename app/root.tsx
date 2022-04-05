@@ -3,13 +3,15 @@ import {
   Links,
   LiveReload,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
+  useOutlet,
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "./tailwind.css";
 import FrontendSamurai from "./components/frontend-samurai";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
@@ -22,13 +24,15 @@ export const meta: MetaFunction = () => ({
 });
 
 export default function App() {
+  const outlet = useOutlet();
+
   return (
     <html lang="en">
       <head>
         <Meta />
         <Links />
       </head>
-      <body className="bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 h-full">
+      <body className="bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 h-full min-h-screen">
         <div className="flex sticky top-0 justify-between rounded-b-3xl shadow-xl bg-gradient-to-bl from-green-100 via-blue-50 to-purple-50 z-10">
           <div className="m-auto">
             <ul className="flex px-5 flex-row justify-between">
@@ -64,7 +68,17 @@ export default function App() {
             </ul>
           </div>
         </div>
-        <Outlet />
+        <AnimatePresence exitBeforeEnter initial={false}>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 0.5 }}
+            key={useLocation().key}
+          >
+            {outlet}
+          </motion.div>
+        </AnimatePresence>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
