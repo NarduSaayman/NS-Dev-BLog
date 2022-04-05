@@ -954,12 +954,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 2.5rem;
 }
 
+.min-h-screen {
+  min-height: 100vh;
+}
+
 .w-10 {
   width: 2.5rem;
 }
 
 .w-6\/12 {
   width: 50%;
+}
+
+.min-w-fit {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
 }
 
 .max-w-sm {
