@@ -1,0 +1,290 @@
+---
+title: What is MDX❓
+date: 2022-04-01
+meta:
+  title: What is MDX❓
+  description: A rundown 🏃‍♂️ of what MDX is, how it works in Remix 💿, and how to implement it in your own remix project.
+---
+
+import BlogComponent from "~/components/blog-component";
+import { Link } from "remix";
+
+
+# {attributes.title}
+
+{attributes.date.toDateString()}
+
+## This is it, it's what you're reading right now! 🎉
+
+
+<div className="transition ease-out hover:scale-105">
+```md
+# What is MDX❓
+
+Fri Apr 01 2022
+
+## This is it, it's what you're reading right now! 🎉
+```
+</div>
+
+### Well kind of, let's dive 🏊‍♂️ in properly
+
+---
+
+## How do I get started with MDX in Remix 💿?
+
+### What do I install ⬇️?
+
+Here's the great part. Nothing! Remix 💿 has MDX built in 🏗 and ready to use.
+Let's use this page as our example.
+
+### Let's get started ✨ with a .mdx file named:
+`what-is-mdx.mdx`
+<div className="transition ease-out hover:scale-105">
+```md
+---
+
+title: What is MDX❓
+date: 2022-04-01
+meta:
+  title: What is MDX❓
+  description: A rundown of what MDX is, how it works in Remix 💿, and how to implement it in your own remix project.
+
+---
+```
+</div>
+
+The lines in the document above between the --- are called "frontmatter". You can think of them like metadata for your document, formatted as YAML.
+
+`meta` acts as the same the meta function in a typical route module in remix, we can add the title and description.
+
+We can reference these frontmatter fields in our MDX using the global `attributes` field.
+
+
+<div className="transition ease-out hover:scale-105">
+```md
+
+# {attributes.title}
+
+{attributes.date.toDateString()}
+
+## This is it, it's what you're reading right now! 🎉
+
+```
+</div>
+
+Any markdown that you can normally write is valid for mdx:
+
+- lists
+  1. Links: [animations](/blog/animations)
+  2. > qoute blocks
+  3. <mark>Code blocks</mark> and footnotes [^1]
+  ```js
+   function(){
+     return "hello world"
+   }
+  ```
+  4. etc. *etc.* __etc.__ __*etc.*__
+
+[^1]: code-highlighting
+
+### Routing to the file. 🚏
+
+#### The same way Remix handles .jsx/.tsx files for routing, the same is handled with .mdx files.
+
+Routing to the file is as simple as navigating to the file in the folder structure
+
+
+<div className="transition ease-out hover:scale-105">
+![Routing to mdx](https://i.imgur.com/gFnvqxj.png)
+</div>
+
+---
+
+## Unpacking MDX 📦 a bit more...
+
+### [Markdown for the component era](https://mdxjs.com/)
+
+> MDX allows you to use JSX in your markdown content. You write markdown and have the power of embedding components through JSX.
+
+
+<div className="transition ease-out hover:scale-105">
+```md
+import MyComponent from "./mycomponent.jsx";
+export const name = "name of my component";
+
+# {name}
+
+This is some markdown explaining what {name} does.
+
+<MyComponent name={name} someOtherProp="" />
+```
+</div>
+
+#### Comparing .mdx and .jsx
+
+These 2 files' output will look the same
+
+<div className="flex gap-5">
+  <div className="w-6/12">
+    `expressions.mdx`
+    ```jsx
+    export const authors = [
+  {name: 'Jane', email: 'hi@jane.com'},
+  {name: 'John', twitter: '@john2002'}
+]
+export const published = new Date('2022-02-01')
+
+Written by: {new Intl.ListFormat('en').format(authors.map(d => d.name))}.
+
+Published on: {new Intl.DateTimeFormat('en', {dateStyle: 'long'}).format(published)}.
+    ```
+  </div>
+  <div className="w-6/12">
+`equivalent.jsx`
+    ```jsx
+    <>
+  <p>Written by: Jane and John.</p>
+  <p>Published on: February 1, 2022.</p>
+</>
+```
+  </div>
+</div>
+
+#### ...so if .mdx is .jsx under the hood can't I also just write any other viable .jsx❓
+
+### Yes it can❗️
+
+Here is an example of importing and adding a `BlogComponent` into the .mdx file...
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+import BlogComponent from "~/components/blog-component";
+
+<BlogComponent 
+heading="This is a Blog Component example" 
+description="Components can be utilized as we normally do, and it will display in .mdx file." 
+/>
+```
+</div>
+
+...and here is what was rendered.
+<BlogComponent heading="This is a Blog Component example" description="Components can be utilized as we normally do, and it will display in the .mdx file." />
+
+Here is what the inside of that component looks like... 👀
+
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+type BlogComponentProps = {
+  heading: string;
+  description: string;
+};
+
+export default function BlogComponent(props: BlogComponentProps) {
+  const { heading, description } = props;
+  return (
+    <div
+      className="group transition ease-in-out text-white rounded-lg p-8 hover:scale-105 
+    bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+    hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500"
+    >
+      <h3 className="text-white group-hover:animate-bounce">
+        <span className="hidden group-hover:inline">🪅 </span>
+        {heading}
+        <span className="hidden group-hover:inline"> 🪅</span>
+      </h3>
+      <p className="group-hover:animate-pulse">{description}</p>
+    </div>
+  );
+}
+```
+</div>
+---
+### Home stretch 🚵‍♂️
+
+Just need to make a list 📝 of our blogs with an `index.tsx`, we are probably going to write more than 1 post right?
+
+#### Not only can you reference other components within the MDX, we can refference the MDX anywhere.
+
+We'll import the `what-is-mdx.mdx` file, and the `LoaderFunction` from Remix 💿.
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+import { Link, LoaderFunction, useLoaderData } from "remix";
+import * as whatIsMdx from "./what-is-mdx.mdx";
+```
+</div>
+
+Then, we write a simple function to get the slug with it's attributes...
+
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+function postFromModule(mod: any) {
+  return {
+    slug: mod.filename.replace(/\.mdx?$/, ""),
+    ...mod.attributes.meta,
+  };
+}
+```
+</div>
+
+Use a loader function to load the array of blogs...
+
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+export const loader: LoaderFunction = () => {
+  return [postFromModule(whatIsMdx)];
+};
+```
+</div>
+
+Finally, render our list...
+
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+export default function BlogIndex() {
+  const posts = useLoaderData();
+  return (
+    <div>
+      <ul>
+        {posts.map((post: any) => (
+          <li key={post.slug}>
+            <Link to={post.slug}>{post.title}</Link>
+            {post.description ? (
+              <p className="m-0 lg:m-0">{post.description}</p>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+</div>
+
+---
+
+### "But wait my codeblocks and styling doesn't look anything like what you have. Did I miss something?"
+
+In this next post I write about how to implement code highlighting and quick styling.
+
+---
+
+<div className="flex">
+  <Link to={`../code-highlighting`} className="transition ease-in-out
+    ml-auto rounded-lg shadow-lg text-white
+    hover:scale-105 no-underline hover:underline 
+    bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+    hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500" >
+    <div>
+      <h4 style={{ marginTop: "0px" }} className="pt-4 pb-2 px-5 text-white">Code Highlighting 👉</h4>
+    </div>
+  </Link>
+</div>
+
+
+
