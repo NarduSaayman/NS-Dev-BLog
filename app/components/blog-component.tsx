@@ -12,9 +12,8 @@ export default function BlogComponent(props: BlogComponentProps) {
     hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500"
     >
       <h3 className="text-white group-hover:animate-bounce">
-        <span className="hidden group-hover:inline">🪅 </span>
-        {heading}
-        <span className="hidden group-hover:inline"> 🪅</span>
+        <span className="inline group-hover:hidden">{heading} is blue!</span>
+        <span className="hidden group-hover:inline">{heading} is red!</span>
       </h3>
       <p className="group-hover:animate-pulse">{description}</p>
     </div>
