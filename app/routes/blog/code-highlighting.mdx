@@ -6,6 +6,166 @@ meta:
   description: You followed everything in the 'What is MDX❓', but your code blocks aren't looking great, well this blog has what you're looking for.
 ---
 
+import { Link } from "remix";
+
 # {attributes.title}
 
 {attributes.date.toDateString()}
+
+When we talk about code highlighting, it's about having that nice display of readable code from a programming language.
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+function(){
+  return "hello world!"
+}
+```
+</div>
+---
+
+## But how do we style these in MDX❓
+
+You can think of it like we're converting the markdown into html, with mdx, we can hook into this transformation with some plugins.
+
+- [remark plugins](https://github.com/remarkjs/remark/blob/main/doc/plugins.md) - transforms markdown
+- [rehype plugins](https://github.com/rehypejs/rehype/blob/main/doc/plugins.md) - is an HTML processor
+
+
+## What are some styling options❓
+
+1. [PrismJS](https://prismjs.com/)
+
+2. [HighlightJS](https://highlightjs.org/)
+
+For this project, I chose to pick up some of the highlightJS styles.
+
+## In our case, I reach 👉 for **rehype**
+Let's install it...
+```
+npm install rehype-highlight
+```
+rehype-highlight is a rehype plugin, using highlightJS.
+
+### Some slight configuration we need to do first
+
+Add an mdx key in our remix config, to allow us to hook into the plugin system.
+
+`remix.config.js`
+
+<div className="transition ease-out hover:scale-105">
+```js
+module.exports = {
+  // some other key: value pairs
+  mdx: async (filename) => {
+    const [rehypeHighlight] = await Promise.all([
+      import("rehype-highlight").then((mod) => mod.default),
+    ]);
+    return {
+      rehypePlugins: [rehypeHighlight],
+    };
+  },
+};
+```
+</div>
+
+## Now we can build a layout route...
+
+First things first, create a `blog.tsx` file in your routes directory (in the same level as your blog folder). Here we can define any css that will be used on this route.
+
+### Importing a highlightJS style..
+
+We'll also need `Outlet` from remix to display our blog posts.
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+import styles from "highlight.js/styles/github-dark-dimmed.css";
+import { LinksFunction, Outlet } from "remix";
+```
+</div>
+
+Then we just need to link or stylesheets with the `LinksFunction`.
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      href: styles,
+    },
+  ];
+};
+```
+</div>
+
+### Since `blog.tsx` is our layout route for all the blogs...
+
+We need to export a default function and drop in an `<Outlet />`
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+export default function Blog() {
+  return (
+    <div className="flex justify-center">
+      <div className="prose">
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+```
+</div>
+
+Awesome, navigate to one of your posts and you should be seeing some code highlighting now.
+
+"But wait, the page still isn't fully styled and just looks like plain html?"
+
+This is where you can write your own custom css, or reach for your favourite styling libraries, I went for tailwindcss, which has a great plugin for styling markdown with a simple classname.
+
+---
+
+### I won't dive in the setup of tailwind and it's plugin in this post, but here are some helpfull resources:
+
+Remix and tailwindcss have great documentation on setting up tailwind w/ remix.
+
+- [Install Tailwind CSS with Remix](https://tailwindcss.com/docs/guides/remix)
+- [Tailwind CSS](https://remix.run/docs/en/v1/guides/styling#tailwind-css)
+
+#### ...and then for the tailwind plugin, you should pick up the **Typography Plugin**
+
+- [Tailwind Typography Plugin](https://tailwindcss.com/docs/typography-plugin)
+
+it's as simple as adding a `prose` class around your `<Outlet />`
+
+<div className="transition ease-out hover:scale-105">
+```jsx
+<div className="prose">
+  <Outlet />
+</div>
+```
+</div>
+
+---
+### Now we can have a look at some of the animations we've seen throughout the blog.
+---
+
+<div className="flex flex-row">
+  <Link to={`../what-is-mdx`} className="transition ease-in-out
+    mr-auto rounded-lg shadow-lg text-white
+    hover:scale-105 no-underline hover:underline 
+    bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+    hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500" >
+    <div>
+      <h4 style={{ marginTop: "0px" }} className="pt-4 pb-2 px-5 text-white">👈 What is MDX❓</h4>
+    </div>
+  </Link>
+  <Link to={`../animations`} className="transition ease-in-out
+    ml-auto rounded-lg shadow-lg text-white
+    hover:scale-105 no-underline hover:underline 
+    bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+    hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500" >
+    <div>
+      <h4 style={{ marginTop: "0px" }} className="pt-4 pb-2 px-5 text-white">Animations 🏃‍♂️ 👉</h4>
+    </div>
+  </Link>
+</div>
