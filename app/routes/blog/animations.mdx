@@ -3,7 +3,7 @@ title: Animations 🏃‍♂️
 date: 2022-04-04
 meta:
   title: Animations 🏃‍♂️
-  description: Animation is a great way improve user experience. Without them, transitions can seem abrupt and jarring 🛸. I like it when a website takes me on journey.
+  description: Animation is a great way to improve user experience. Without them, transitions can seem abrupt and jarring 🛸. I like it when a website takes me on journey.
 ---
 
 import { Link } from "remix";
@@ -41,9 +41,23 @@ export const toRight = 1
 >
 {attributes.date.toDateString()}
 
-Animation is a great way improve user experience. Without them, transitions can seem abrupt and jarring 🛸. Sometimes content on a site just feels outright boring. I like it when a website takes me on journey.
+Animation is a great way to improve user experience. Without them, transitions can seem abrupt and jarring 🛸. Sometimes content on a site just feels outright boring. I like it when a website takes me on journey.
 </motion.div>
 
+---
+
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 ## What did I use❓
 
 ### 👉 [Framer Motion](https://www.framer.com/motion/)
@@ -58,14 +72,39 @@ npm install framer-motion
 
 #### Imports
 
+<motion.div
+  initial={{
+    x: -100 * toRight,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 ```jsx
 import { motion } from "framer-motion"
 ```
+</motion.div>
 
 You're all set and ready to animate❗️
 
 #### All you need to do now is wrap your content in a `<motion>` component
 
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 ```jsx
 <motion.div animate={{ scale: 0.5 }}>
   <div>
@@ -73,6 +112,7 @@ You're all set and ready to animate❗️
   </div>
 </motion.div>
 ```
+</motion.div>
 
 `motion` is the core of the Motion API, and there's a motion component for every HTML and SVG elements.
 
@@ -82,29 +122,82 @@ You're all set and ready to animate❗️
 - `<motion.h1>`
 - etc...
 
+</motion.div>
+
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 ### Let's try and make some more interesting and custom animations
 
 #### A `motion` can have multiple props defining some things, let's have a look...
 
 A motion to have an element fade in...
 
+<motion.div
+  initial={{
+    x: -100 * toRight,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 ```jsx
 <motion.div
   initial={{ opacity: 0 }}
   animate={{ opacity: 1 }}
 />
 ```
+</motion.div>
 
 A motion to move an element to it's correct position...
+
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 ```jsx
 <motion.div
   initial={{ x: -100, y: 100 }}
   animate={{ x: 0, y: 0 }}
 />
 ```
+</motion.div>
 
 Not only can you move and change the opacity, you can add some transition effects to how your element should move to it's position...
 
+<motion.div
+  initial={{
+    x: -100 * toRight,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 ```jsx
 <motion.div
   initial={{ opacity: 0, x: -100, y: 100 }}
@@ -115,11 +208,40 @@ Not only can you move and change the opacity, you can add some transition effect
   }}
 />
 ```
+</motion.div>
 
 Motion is now your oyster, be creative and start playing with animations.
 
+</motion.div>
+
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
 ### Here are some snippets of animation from this blog.
 
+This code block...
+
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
 ```jsx
 export const toLeft = -1
 export const toRight = 1
@@ -139,6 +261,42 @@ export const toRight = 1
 // Code Block
 </motion.div>
 ```
+</motion.div>
+
+Blog from the blogs list...
+
+<motion.div
+  initial={{
+    x: -100 * toRight,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
+```jsx
+<motion.div
+  initial={{
+    opacity: 0,
+    x: -500 * (direction *= -1),
+  }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{
+    type: "spring",
+    stiffness: 150,
+    damping: 15,
+  }}
+>
+  <li> 
+    // Blog
+  </li>
+</motion.div>  
+```
+</motion.div>
+</motion.div>
 
 ---
 
