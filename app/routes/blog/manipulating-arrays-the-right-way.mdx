@@ -1,0 +1,197 @@
+---
+title: Manipulating Arrays The Right Way [...✔,✔,✔]
+date: 2022-08-25
+meta:
+  title: Manipulating Arrays The Right Way [...✔,✔,✔]
+  description: I was trying to manipulate and build an array that would be used to make a PUT request to an API. I did a terrible job at it, so I learned how to do it better. ✨
+---
+
+import TableLogic from "~/components/table-logic";
+import { Link } from "remix";
+import { motion } from "framer-motion";
+
+export const toLeft = -1
+export const toRight = 1
+
+<motion.div
+  initial={{
+    x: -100 * toLeft,
+    opacity: 0,
+  }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    x: { type: "spring", duration: 0.8, delay: 0.2 },
+    opacity: { delay: 0.2 },
+  }}
+>
+# {attributes.title}
+</motion.div>
+
+<motion.div
+  initial={{
+    y: 50,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
+{attributes.date.toDateString()}
+
+I was trying to manipulate and build an array that would be used to make a PUT request to an API. I did a terrible job at it, so I learned how to do it better. ✨
+</motion.div>
+
+<motion.div
+  initial={{
+    y: 100,
+    opacity: 0,
+  }}
+  whileInView={{ y: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{
+    y: { type: "spring", duration: 0.8, delay: 0.3 },
+    opacity: { delay: 0.3 },
+  }}
+>
+## The Context❓
+
+I had an interesting problem to solve. 🤔 A user would query some name with a starting and ending date 📅 and get back a list of results of some generic data and a status associated to each item. Here is where the problem comes in.
+First thing is to render the list results in a table. I didn't have the luxury of a library to handle my table, so the good ol' `<table>` had to do. 👌
+
+### The Table Logic 🧮
+The table would display the array 🀠 of results where each result will have some genereic data, like a name, numbers and a status. The table will need two inputs to agree or disagree. These inputs are checkboxes ☑, where the status changes depending on the state of the two checkboxes.
+
+* Waiting ⌛ - Nothing selected
+* Agreed ✔ - Agree selected
+* Disagreed ❌ - Disagree selected
+
+Both Agreed ✔ and Disagreed ❌, can't be selected at the same time.
+
+### The Solution 💡
+
+One of the solutions would be to just modify the original result that came from the search, and send back the modification... Though in this case editing the orginal was a no-no. 🚫
+
+This leads to having to create a new array with the changes...
+
+Here is where I was starting to build and do silly manipulations that weren't ideal. An example would be to push changes to an array, and then change any entry with the unique number 1 and number 2 combination that match the result from the checkbox change events.
+
+I would then find a odd use case for `new Set( )`, where I would take taht array with all the duplicates and set itself to a an array of a new set of itself... yes, I know, I don't know what I was thinking there...
+
+I had my "This is a bad idea" voice in my head...
+
+```jsx
+arrayToUpdate = [...new Set(arrayToUpdate)]
+```
+
+### Redemption 🎇
+
+After re-thinking my approach I started fresh and looked at first finding the correct result that needs to be changed. I'd have a funciton I would call each time the status changed, giving it the result and the status it should change to.
+
+```jsx
+changeStatus(resultData: Data, status: string){
+  if(resultData){
+    (resultData.status === 'Waiting ⌛' || resultData.status !== status) ? 
+    resultData.status = status : 
+    resultData.status = resultData.status = 'Waiting ⌛'
+
+    addResultToUpdate(resultData, status)
+  }
+}
+```
+
+```jsx
+addResultToUpdate(resultData: Data, status: string){
+
+  const resultToUpdate = originalData.find(
+    originalResult =>
+      (resultData.number1 === originalResult.number1) &&
+      (resultData.number2 === originalResult.number2))
+...
+}
+```
+
+Great, I now have the record, now I'll need to just add it to the new array to udpate their statuses. Easy enough, just push onto the array... but I'm doing a lot of changes and using `array.push()` can lead to some unwanted changes to the data in the array. A better approach is to then spread the original and then appending the new content.
+
+```jsx
+...
+    resultsToUpdate = [
+      ...resultsToUpdate,
+      {
+      number1: resultData.number1,
+      number2: resultData.number2,
+      newStatus: status,
+      }
+    ]
+...
+```
+
+Nice, now I'm starting to work and manipualte the array a bit better, but one thing is till a problem though is what if there is a duplicate?
+
+Rather than pushing duplicates onto the array, check if there is a unique entry in the array and then update that entry. I'll just check if that `find()` I did earlier found a value, if it does great, I have something to index on. If it doesn't have anything I can jsut add the new value. 
+
+So here is the solution:
+```jsx
+addResultToUpdate(resultData: Data, status: string){
+
+  const resultToUpdate = originalData.find(
+    originalResult =>
+      (resultData.number1 === originalResult.number1) &&
+      (resultData.number2 === originalResult.number2))
+
+  if(resultToUpdate)
+    resultsToUpdate[resultsToUpdate.indexOf(resultToUpdate)] = 
+    {
+      ...resultToUpdate, 
+      newStatus: status
+    }
+  else
+  resultsToUpdate = [
+    ...resultsToUpdate,
+    {
+    number1: resultData.number1,
+    number2: resultData.number2,
+    newStatus: status,
+    }
+  ]
+}
+```
+
+#### It worked a little something like this:
+
+<TableLogic />
+
+</motion.div>
+
+---
+
+<div className="flex flex-row">
+  <motion.div
+    initial={{
+      x: -100 * toLeft,
+      opacity: 0,
+    }}
+    whileInView={{ x: 0, opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{
+      x: { type: "spring", duration: 0.8, delay: 0.2 },
+      opacity: { delay: 0.2 },
+    }}
+    className="mr-auto"
+  >
+    <div className="transition ease-in-out
+        rounded-lg shadow-lg
+        hover:scale-105 hover:underline 
+        bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+        hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500">
+      <Link to={`../animations`} className="no-underline text-white" >
+        <div>
+          <h4 style={{ marginTop: "0px" }} className="py-4 px-5 text-white">👈 Animations 🏃‍♂️</h4>
+        </div>
+      </Link>
+    </div>
+  </motion.div>
+</div>

@@ -2,6 +2,7 @@ import { Link, LoaderFunction, useLoaderData } from "remix";
 import * as whatIsMdx from "./what-is-mdx.mdx";
 import * as codeHighlighting from "./code-highlighting.mdx";
 import * as animations from "./animations.mdx";
+import * as manipulatingArraysTheRightWay from "./manipulating-arrays-the-right-way.mdx";
 import { motion } from "framer-motion";
 
 function postFromModule(mod: any) {
@@ -16,6 +17,7 @@ export const loader: LoaderFunction = () => {
     postFromModule(whatIsMdx),
     postFromModule(codeHighlighting),
     postFromModule(animations),
+    postFromModule(manipulatingArraysTheRightWay),
   ];
 };
 

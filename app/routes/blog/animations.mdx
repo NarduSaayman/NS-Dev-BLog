@@ -327,27 +327,54 @@ Blog from the blogs list...
 
 ---
 
-<motion.div
-  initial={{
-    x: -100 * toLeft,
-    opacity: 0,
-  }}
-  whileInView={{ x: 0, opacity: 1 }}
-  viewport={{ once: true }}
-  transition={{
-    x: { type: "spring", duration: 0.8, delay: 0.2 },
-    opacity: { delay: 0.2 },
-  }}
->
-<div className="flex">
-  <Link to={`../code-highlighting`} className="transition ease-in-out
-    mr-auto rounded-lg shadow-lg text-white
-    hover:scale-105 no-underline hover:underline 
-    bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
-    hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500" >
-    <div>
-      <h4 style={{ marginTop: "0px" }} className="pt-4 pb-2 px-5 text-white">👈 Code Highlighting ✍️</h4>
+<div className="flex flex-row">
+  <motion.div
+    initial={{
+      x: -100 * toLeft,
+      opacity: 0,
+    }}
+    whileInView={{ x: 0, opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{
+      x: { type: "spring", duration: 0.8, delay: 0.2 },
+      opacity: { delay: 0.2 },
+    }}
+  >
+  <div className="flex">
+    <Link to={`../code-highlighting`} className="transition ease-in-out
+      mr-auto rounded-lg shadow-lg text-white
+      hover:scale-105 no-underline hover:underline 
+      bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+      hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500" >
+      <div>
+        <h4 style={{ marginTop: "0px" }} className="pt-4 pb-2 px-5 text-white">👈 Code Highlighting ✍️</h4>
+      </div>
+    </Link>
+  </div>
+  </motion.div>
+  <motion.div
+    initial={{
+      x: -100 * toRight,
+      opacity: 0,
+    }}
+    whileInView={{ x: 0, opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{
+      x: { type: "spring", duration: 0.8, delay: 0.2 },
+      opacity: { delay: 0.2 },
+    }}
+    className="ml-auto"
+  >
+    <div className="transition ease-in-out
+        rounded-lg shadow-lg
+        hover:scale-105 hover:underline 
+        bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 
+        hover:bg-gradient-to-br hover:from-pink-500 hover:via-red-500 hover:to-yellow-500">
+      <Link to={`../manipulating-arrays-the-right-way`} className="no-underline text-white">
+        <div>
+          <h4 style={{ marginTop: "0px" }} className="py-4 px-5 text-white">[...✔,✔,✔] Manipulating Arrays 👉</h4>
+        </div>
+      </Link>
     </div>
-  </Link>
+  </motion.div>
 </div>
-</motion.div>
