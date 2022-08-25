@@ -59,7 +59,7 @@ I was trying to manipulate and build an array that would be used to make a PUT r
 >
 ## The Context❓
 
-I had an interesting problem to solve. 🤔 A user would query some name with a starting and ending date 📅 and get back a list of results of some generic data and a status associated to each item. Here is where the problem comes in.
+I had an interesting problem to solve. 🤔 A user would query some name with a starting and ending date 📅 and get back a list of results with some generic data and a status associated to each item. Here is where the problem comes in.
 First thing is to render the list results in a table. I didn't have the luxury of a library to handle my table, so the good ol' `<table>` had to do. 👌
 
 ### The Table Logic 🧮
@@ -114,7 +114,7 @@ addResultToUpdate(resultData: Data, status: string){
 }
 ```
 
-Great, I now have the record, now I'll need to just add it to the new array to udpate their statuses. Easy enough, just push onto the array... but I'm doing a lot of changes and using `array.push()` can lead to some unwanted changes to the data in the array. A better approach is to then spread the original and then appending the new content.
+Great, I now have the record, I'll need to just add it to the new array to update their statuses. Easy enough, just push onto the array... but I'm doing a lot of changes and using `array.push()` can lead to some unwanted changes to the data in the array. A better approach is to then spread the original and then appending the new content.
 
 ```jsx
 ...
@@ -129,9 +129,9 @@ Great, I now have the record, now I'll need to just add it to the new array to u
 ...
 ```
 
-Nice, now I'm starting to work and manipualte the array a bit better, but one thing is till a problem though is what if there is a duplicate?
+Nice, now I'm starting to work and manipualte the array a bit better, but one thing that's till a problem though is what if there is a duplicate?
 
-Rather than pushing duplicates onto the array, check if there is a unique entry in the array and then update that entry. I'll just check if that `find()` I did earlier found a value, if it does great, I have something to index on. If it doesn't have anything I can jsut add the new value. 
+Rather than pushing duplicates onto the array, check if there is a unique entry in the array and then update that entry. I'll just check if that `find()` I did earlier found a value, if it does great, I have something to index on. If it doesn't have anything I can just add the new value. 
 
 So here is the solution:
 ```jsx
