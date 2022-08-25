@@ -66,12 +66,12 @@ export default function TableLogic() {
                 </td>
                 <td className="align-middle">
                   <div className="flex justify-center">
-                  <input checked={data.status === 'Agreed ✔'} onChange={() => changeStatus(data, 'Agreed ✔')} className="w-6 h-6" type="checkbox" />
+                  <input checked={data.status === 'Agreed ✔'} onChange={() => changeStatus(data, 'Agreed ✔')} className="w-6 h-6 cursor-pointer" type="checkbox" />
                   </div>
                 </td>
                 <td className="align-middle">
                   <div className="flex justify-center">
-                    <input checked={data.status === 'Disagreed ❌'}  onChange={() => changeStatus(data, 'Disagreed ❌')} className="w-6 h-6" type="checkbox" />
+                    <input checked={data.status === 'Disagreed ❌'}  onChange={() => changeStatus(data, 'Disagreed ❌')} className="w-6 h-6 cursor-pointer" type="checkbox" />
                   </div>
                 </td>
               </tr>
