@@ -71,6 +71,10 @@ The table would display the array 🀠 of results where each result will have so
 
 Both Agreed ✔ and Disagreed ❌, can't be selected at the same time.
 
+#### It worked a little something like this:
+
+<TableLogic />
+
 ### The Solution 💡
 
 One of the solutions would be to just modify the original result that came from the search, and send back the modification... Though in this case editing the orginal was a no-no. 🚫
@@ -137,20 +141,20 @@ So here is the solution:
 ```jsx
 addResultToUpdate(resultData: Data, status: string){
 
-  const resultToUpdate = originalData.find(
+  const resultToUpdateIndex = originalData.findof(
     originalResult =>
       (resultData.number1 === originalResult.number1) &&
       (resultData.number2 === originalResult.number2))
 
-  if(resultToUpdate)
-    resultsToUpdate[resultsToUpdate.indexOf(resultToUpdate)] = 
+  if(resultToUpdateIndex > -1)
+    resultsToUpdate[resultToUpdateIndex] = 
     {
-      ...resultToUpdate, 
+      ...resultsToUpdate[resultToUpdateIndex], 
       newStatus: status
     }
   else
   resultsToUpdate = [
-    ...resultsToUpdate,
+    ...resultsToUpdate[resultToUpdateIndex],
     {
     number1: resultData.number1,
     number2: resultData.number2,
@@ -159,10 +163,6 @@ addResultToUpdate(resultData: Data, status: string){
   ]
 }
 ```
-
-#### It worked a little something like this:
-
-<TableLogic />
 
 </motion.div>
 
